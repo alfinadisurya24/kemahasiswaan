@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// register view
+Route::get('/profile', 'Home@profile');
+
+// register view
+Route::get('/register', 'Home@register_v');
+
+// login view
+Route::get('/login', 'Home@login_v');
+
+// update mahasiswa
+Route::get('/mahasiswa/update/{id}', 'Home@updateMhs');
+
+// create mahasiswa
+Route::get('/mahasiswa/create', 'Home@createMhs');
+
+// data mahasiswa
+Route::get('/mahasiswa', 'Home@mahasiswa');
+
+// home
+Route::get('/', 'Home@index');
