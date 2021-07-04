@@ -15,29 +15,90 @@
     <section class="content">
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
 
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg"
-                            alt="User profile picture">
-
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-                        <p class="text-muted text-center">Software Engineer</p>
-
-                        <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <b>Followers</b> <a class="pull-right">1,322</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Following</b> <a class="pull-right">543</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Friends</b> <a class="pull-right">13,287</a>
-                            </li>
-                        </ul>
+                        <div class="col-md-4">
+                            @php
+                                if (empty($dataUser[0]->img)) {
+                            @endphp  
+                                    <img src=" {{ asset('dist/img') }}/no-image-2.png" style="height: 35rem; width: 100%; margin-bottom: 10px;" alt="">
+                            @php 
+                                } else {
+                            @endphp    
+                                    <img src="{{ asset('images') }}/{{ $dataUser[0]->img }}" style="height: 35rem; width: 100%; margin-bottom: 10px;" alt="">
+                            @php 
+                                }
+                            @endphp
+                            {{-- <img class="" alt="" style="height: 35rem; width: 100%; margin-bottom: 10px;" src="../../dist/img/no-image-2.png"
+                            alt="User profile picture"> --}}
+                            <form action="/user/upload/img" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="idImg" value="{{ $dataUser[0]->id }}">
+                                <input type="hidden" name="nameImg" value="{{ $dataUser[0]->name }}">
+                                <input type="file" name="usrImg" style="margin-bottom: 10px;">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>    
+                        </div>
+                        <div class="col-md-8">
+                            @if (session('message'))
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong><center>{{ session('message') }}</center></strong>
+                                </div>                 
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong><center>{{ session('error') }}</center></strong>
+                                </div>                 
+                            @endif
+                            <h3>Profile User</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form action="/user/update/data" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="idData" value="{{ $dataUser[0]->id }}" required>
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" value="{{ $dataUser[0]->name }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="number" class="form-control" name="phone" value="{{ $dataUser[0]->phone }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="text" class="form-control" name="email" value="{{ $dataUser[0]->email }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" name="username" value="{{ $dataUser[0]->username }}" required>
+                                        </div>
+                                        {{-- <div class="box-footer"> --}}
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        {{-- </div> --}}
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <form action="/user/change/password" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="idPass" value="{{ $dataUser[0]->id }}">
+                                        <div class="form-group">
+                                            <label for="name">Password</label>
+                                            <input type="password" class="form-control" name="password" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Re Password</label>
+                                            <input type="password" class="form-control" name="repassword" value="">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -52,13 +113,13 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<footer class="main-footer">
+{{-- <footer class="main-footer">
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.4.18
     </div>
     <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
     reserved.
-</footer>
+</footer> --}}
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">

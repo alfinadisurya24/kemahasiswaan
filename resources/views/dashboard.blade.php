@@ -39,12 +39,12 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{ $jumlahProdi }}</h3>
+                            <h3>{{ $jumlahUser }}</h3>
 
-                            <p>Prodi</p>
+                            <p>Users</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-book"></i>
+                            <i class="fa fa-users"></i>
                         </div>
                         {{-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> --}}
                     </div>

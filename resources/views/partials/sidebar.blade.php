@@ -39,8 +39,9 @@
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li> --}}
-            <li class="{{ Request::segment(1) == '' ? 'active' : '' }}"><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li class="{{ Request::segment(1) == '' ? 'active' : '' }}"><a href="/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li class="{{ Request::segment(1) == 'mahasiswa' ? 'active' : '' }}"><a href="/mahasiswa"><i class="fa fa-users"></i> <span>Mahasiswa</span></a></li>
+            <li class="{{ Request::segment(1) == 'user' ? 'active' : '' }}"><a href="/user"><i class="fa fa-users"></i> <span>User</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

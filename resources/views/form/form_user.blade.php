@@ -6,11 +6,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{ ucfirst($action) }} Mahasiswa
+            {{ ucfirst($action) }} User
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/mahasiswa"><i class="fa fa-users"></i> Mahasiswa</a></li>
+            <li><a href="/mahasiswa"><i class="fa fa-users"></i> User</a></li>
             <li class="active">{{ ucfirst($action) }}</li>
         </ol>
     </section>
@@ -23,40 +23,40 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        <form method="POST" action="{{ url('/mahasiswa/'.$action.'/data') }}">
+                        <form method="POST" action="{{ url('/user/'.$action.'/master/data') }}">
                             @csrf
                             {{-- <div class="box-body"> --}}
-                            <input type="hidden" name="id" value="{{ $field->id }}">
+                            <input type="hidden" name="id" value="{{$field->id}}">
                             <div class="form-group">
-                                <label for="nim">NIM</label>
-                                <input type="text" class="form-control" name="nim" value="{{ $field->nim }}" placeholder="* nim" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Nama</label>
-                                <input type="text" class="form-control" name="name" value="{{ $field->name }}" placeholder="* nama" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="prodi">Prodi</label>
-                                <select class="form-control" name="prodi" required>
-                                    @if ($action == 'create')
-                                        <option disabled selected>Pilih prodi</option>
-                                    @endif
-                                    @foreach ($prodi as $opt)
-                                        <option value="{{ $opt->id }}" {{ $field->prodi_id == $opt->id ? 'selected' : '' }}>{{ $opt->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{$field->name}}" placeholder="* name" >
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ $field->email }}" placeholder="* email" required>
+                                <input type="text" class="form-control" name="email" value="{{$field->email}}" placeholder="* email" >
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" name="phone" value="{{ $field->phone }}" placeholder="* phone" required>
+                                <input type="number" class="form-control" name="phone" value="{{$field->phone}}" placeholder="* phone" >
                             </div>
                             <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <textarea class="form-control" name="alamat" rows="3" placeholder="* alamat" required>{{ $field->address }}</textarea>
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" value="{{$field->username}}" placeholder="* phone" >
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password {{ ($action == 'update') ? '(optional)' : '' }} </label>
+                                <input type="password" class="form-control" name="password" value="" placeholder="* password" >
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select class="form-control" name="role" >
+                                    @if ($action == 'create')
+                                        <option disabled selected>Pilih prodi</option>
+                                    @endif
+                                    @foreach ($role as $opt)
+                                        <option value="{{ $opt->id }}" {{ $field->role_id == $opt->id ? 'selected' : '' }}>{{ $opt->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             {{-- <div class="form-group">
