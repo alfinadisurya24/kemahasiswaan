@@ -16,13 +16,15 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
+                        @if (session('role') == 1)
                         <a class="btn btn-primary" href="/mahasiswa/create">Create</a>
+                        @endif
                         <a class="btn btn-primary" href="/mahasiswa/export_pdf">PDF</a>
                         @if (session('message'))
                             <div class="alert alert-success alert-dismissible" style="margin-top: 10px; margin-bottom: 0;">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong><center>{{ session('message') }}</center></strong>
-                            </div>                 
+                            </div>
                         @endif
                     </div>
                     <!-- /.box-header -->
@@ -36,7 +38,9 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Alamat</th>
+                                    @if (session('role') != 3)
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +52,7 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->address }}</td>
+                                        @if (session('role') != 3)
                                         <td>
                                             <a class="btn btn-info" href="/mahasiswa/update/{{ $item->idMhs }}">Update</a>
                                             {{-- <a class="btn btn-danger"  href="/mahasiswa/delete/data">Delete</a> --}}
@@ -57,6 +62,7 @@
                                                 <button type="submit" onclick="return confirm('Anda Yakin Data diHapus?')" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
