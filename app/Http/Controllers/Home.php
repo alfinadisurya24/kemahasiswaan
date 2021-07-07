@@ -47,7 +47,7 @@ class Home extends Controller
     }
 
     public function profile(){
-        $id = $this->get_cookie('userid')[0];
+        $id = session('userid');
         
         $user = DB::select('select * from users where id = ' . $id);
         $data = [
@@ -322,35 +322,17 @@ class Home extends Controller
         if (!Hash::check($password, $dbpass)) {
             return redirect('/')->with('message', 'Username atau password salah!');
         } else {
-            $this->set_cookie('userid', $usrData[0]->id);
+            session(['userid' => $usrData[0]->id]);
+            session(['role' => $usrData[0]->role_id]);
             return redirect('/dashboard');
         }
     }
 
-    public function logout()
+    public function logout(Request $req)
     {
-        $this->del_cookie('userid');
+        $req->session()->flush();
         header("Set-Cookie: credentials=; path=/; httpOnly;");
         return redirect('/');
-    }
-
-    public function get_cookie($cookie_name) {
-        try {
-            $data = (array)json_decode(base64_decode(base64_decode($_COOKIE[$cookie_name])));
-        } catch(\Exception $e) {
-            $data = [];
-        }
-        return $data;
-    }
-
-    public function set_cookie($name, $data) {
-        $data = base64_encode(base64_encode(json_encode($data)));
-        header('Set-Cookie: '.$name.'='.$data.'; path=/; httpOnly');
-    }
-
-    public function del_cookie($name) {
-        $cookie_name = $name;
-        header('Set-Cookie: '.$cookie_name.'=; path=/; httpOnly');
     }
 
 }
